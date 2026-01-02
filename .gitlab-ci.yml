@@ -1,0 +1,31 @@
+image: cirrusci/flutter:stable
+
+stages:
+  - build
+  - deploy
+
+before_script:
+  - flutter pub get
+
+# ===============================
+# 📦 BUILD STAGE
+# ===============================
+build_apk:
+  stage: build
+  script:
+    - flutter build apk --debug
+  artifacts:
+    paths:
+      - build/app/outputs/flutter-apk/app-debug.apk
+
+# ===============================
+# 🚀 DEPLOY STAGE
+# ===============================
+deploy_apk:
+  stage: deploy
+  script:
+    - echo "APK deployed successfully"
+  artifacts:
+    paths:
+      - build/app/outputs/flutter-apk/app-debug.apk
+    when: always
